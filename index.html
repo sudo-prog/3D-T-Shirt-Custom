@@ -108,6 +108,197 @@
       transform: translateX(-50%);
       overflow: hidden;
     }
+
+    .chat-button {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #4D97E7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      transition: transform 0.2s;
+    }
+
+    .chat-button:hover {
+      transform: scale(1.05);
+    }
+
+    .chat-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .chat-popup {
+      position: fixed;
+      left: 20px;
+      bottom: 90px;
+      width: 390px;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .chat-header {
+      padding: 15px;
+      background: #4D97E7;
+      color: white;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chat-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .close-chat {
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    .chat-input-container {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .send-button {
+      padding: 10px 20px;
+      background: #4D97E7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .send-button:hover {
+      background: #3d7bc8;
+    }
+
+    .upload-image-button {
+      padding: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4D97E7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-image-button:hover {
+      color: #3d7bc8;
+    }
+
+    .upload-image-button img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .message.received {
+      background: #f0f0f0;
+      margin-right: auto;
+    }
+
+    .message.sent {
+      background: #4D97E7;
+      color: white;
+      margin-left: auto;
+    }
+
+    .message img {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 8px;
+      margin-top: 5px;
+    }
+
+    .message.sent img {
+      border: 2px solid white;
+    }
+
+    .message.received img {
+      border: 2px solid #e0e0e0;
+    }
+
+    #image-upload {
+      display: none;
+    }
+
+    .image-preview {
+      position: relative;
+      display: inline-block;
+      margin: 5px;
+    }
+
+    .image-preview img {
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 4px;
+    }
+
+    .remove-image {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      border-top: 1px solid #eee;
+      display: none;
+    }
   </style>
 </head>
 
@@ -625,6 +816,31 @@
       </div> -->
     </div>
   </div>
+  <div id="chat-button" class="chat-button">
+    <img src="images/chat-icon.png" alt="Chat" class="chat-icon">
+  </div>
+
+  <div id="chat-popup" class="chat-popup">
+    <div class="chat-header">
+      <div class="chat-title">Chat with us</div>
+      <div id="close-chat" class="close-chat">×</div>
+    </div>
+    <div class="chat-messages">
+      <!-- Messages will be added here dynamically -->
+    </div>
+    <div class="preview-container" id="preview-container">
+      <!-- Image previews will be added here -->
+    </div>
+    <div class="chat-input-container">
+      <input type="file" id="image-upload" accept="image/*" multiple>
+      <button class="upload-image-button" id="upload-image-button">
+        <img src="images/folde.png" alt="Upload Image">
+      </button>
+      <input type="text" id="chat-input" placeholder="Type your message..." class="chat-input">
+      <button id="send-message" class="send-button">Send</button>
+    </div>
+  </div>
+
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6708ca60f8a2c106b896bc9a"
     type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
     crossorigin="anonymous"></script>
@@ -1045,6 +1261,151 @@
         canvas.classList.remove("portrait");
         canvas.classList.add("automatic");
       });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const chatButton = document.getElementById('chat-button');
+      const chatPopup = document.getElementById('chat-popup');
+      const closeChat = document.getElementById('close-chat');
+      const sendButton = document.getElementById('send-message');
+      const chatInput = document.getElementById('chat-input');
+      const chatMessages = document.querySelector('.chat-messages');
+      const uploadImageButton = document.getElementById('upload-image-button');
+      const imageUpload = document.getElementById('image-upload');
+      const previewContainer = document.getElementById('preview-container');
+
+      let selectedImages = [];
+
+      // Toggle chat popup
+      chatButton.addEventListener('click', () => {
+        chatPopup.style.display = chatPopup.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Close chat popup
+      closeChat.addEventListener('click', () => {
+        chatPopup.style.display = 'none';
+        // Clear selected images when closing chat
+        selectedImages = [];
+        previewContainer.style.display = 'none';
+        previewContainer.innerHTML = '';
+      });
+
+      // Handle image upload button click
+      uploadImageButton.addEventListener('click', () => {
+        imageUpload.click();
+      });
+
+      // Handle image selection
+      imageUpload.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files);
+
+        files.forEach(file => {
+          if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+              selectedImages.push({
+                file: file,
+                preview: e.target.result
+              });
+
+              updateImagePreviews();
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+
+      // Update image previews
+      function updateImagePreviews() {
+        previewContainer.innerHTML = '';
+
+        selectedImages.forEach((image, index) => {
+          const preview = document.createElement('div');
+          preview.className = 'image-preview';
+
+          const img = document.createElement('img');
+          img.src = image.preview;
+
+          const removeButton = document.createElement('button');
+          removeButton.className = 'remove-image';
+          removeButton.innerHTML = '×';
+          removeButton.onclick = () => {
+            selectedImages.splice(index, 1);
+            updateImagePreviews();
+          };
+
+          preview.appendChild(img);
+          preview.appendChild(removeButton);
+          previewContainer.appendChild(preview);
+        });
+
+        previewContainer.style.display = selectedImages.length > 0 ? 'flex' : 'none';
+      }
+
+      // Send message
+      function sendMessage() {
+        const message = chatInput.value.trim();
+        const hasImages = selectedImages.length > 0;
+
+        if (message || hasImages) {
+          // Add user message with text and/or images
+          addMessage(message, 'sent', selectedImages.map(img => img.preview));
+          chatInput.value = '';
+
+          // Clear selected images
+          selectedImages = [];
+          previewContainer.style.display = 'none';
+          previewContainer.innerHTML = '';
+
+          // Simulate response
+          setTimeout(() => {
+            addMessage('Thank you for your message and images. Our team will review them shortly!', 'received');
+          }, 1000);
+        }
+      }
+
+      // Add message to chat
+      function addMessage(text, type, images = []) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+
+        if (text) {
+          const textDiv = document.createElement('div');
+          textDiv.textContent = text;
+          messageDiv.appendChild(textDiv);
+        }
+
+        if (images && images.length > 0) {
+          images.forEach(imageUrl => {
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = 'Uploaded image';
+            messageDiv.appendChild(img);
+          });
+        }
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Send message on button click
+      sendButton.addEventListener('click', sendMessage);
+
+      // Send message on Enter key
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      // Add initial greeting message
+      setTimeout(() => {
+        addMessage('Hello! How can we help you today?', 'received');
+      }, 500);
     });
   </script>
 </body>
