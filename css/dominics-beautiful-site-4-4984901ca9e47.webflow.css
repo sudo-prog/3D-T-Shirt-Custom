@@ -3376,7 +3376,7 @@ figcaption {
 .text-block-26 {
   margin-left: 15px;
   font-family: Poppins, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   display: flex;
 }
 
@@ -3459,6 +3459,7 @@ figcaption {
   padding-bottom: 0;
   padding-left: 10px;
   display: flex;
+  font-size: 15px;
 }
 
 .accordion-toggle-3:hover {
@@ -3471,20 +3472,20 @@ figcaption {
   width: 15px;
   max-width: none;
   height: 15px;
-  margin-left: 41px;
+  margin-left: 50px;
   position: relative;
 }
 
 .image-32.icon2 {
   width: 17px;
   height: 17px;
-  margin-left: 113px;
+  margin-left: 72px;
 }
 
 .image-32.settingsicon {
   width: 20px;
   height: 20px;
-  margin-left: 42px;
+  margin-left: 9px;
 }
 
 .accordian_ae-2 {

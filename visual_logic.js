@@ -11689,9 +11689,9 @@ function createPL(v3d = window.v3d) {
                             contextMenuNode.className = "cf_context-menu";
                             contextMenuNode.style.display = "none";
                             contextMenuNode.innerHTML = `
-                    <div class="cf_button cf_context-menu__button" data-action="up">Layer Up</div>
-                    <div class="cf_button cf_context-menu__button" data-action="down">Layer Down</div>
-                    <div class="cf_button cf_context-menu__button" data-action="remove">Remove</div>
+                    <div class="cf_button cf_context-menu__button" data-action="up">Lớp trên</div>
+                    <div class="cf_button cf_context-menu__button" data-action="down">Lớp dưới</div>
+                    <div class="cf_button cf_context-menu__button" data-action="remove">Xóa</div>
                     `;
                             contextMenuNode = wrapper.appendChild(contextMenuNode);
                             stage.cfTransforming = {
@@ -11813,7 +11813,7 @@ function createPL(v3d = window.v3d) {
                             textToolsNode.className = "cf_block cf_text";
                             textToolsNode.innerHTML = `
 
-                  <button class="cf_button cf_text-add">Add Text</button>
+                  <button class="cf_button cf_text-add">Thêm chữ</button>
 
                     <input type="color" class="cf_text-color" data-stage="${stageId}"/>
                     <label class="cf_label cf_label-color"></label>
@@ -12104,7 +12104,7 @@ function createPL(v3d = window.v3d) {
                             imageBlock.innerHTML = `
 
                     <label class="cf_button cf_image-wrapper">
-                        Upload Design
+                        Thêm Ảnh
                     </label>
                     `;
                             imageBlock = toolsFlexContainer.appendChild(imageBlock);
@@ -12246,7 +12246,7 @@ function createPL(v3d = window.v3d) {
                             undoRedo.className = "cf_block cf_state-controls";
 
                             undoRedo.innerHTML = `
-                            <button class="cf_button cf_state-reset">Reset</button>`;
+                    <button class="cf_button cf_state-reset">Xóa thiết kế</button>`;
                             toolsFlexContainer.append(undoRedo);
 
                             //undo redo next
@@ -12873,7 +12873,7 @@ function createPL(v3d = window.v3d) {
                 setHTMLElemAttribute("className", "cf_button", "exportButton", false);
                 setHTMLElemAttribute(
                     "innerHTML",
-                    " Save Layout",
+                    "Lưu thiết kế",
                     "exportButton",
                     false
                 );
@@ -12888,7 +12888,7 @@ function createPL(v3d = window.v3d) {
                     false
                 );
                 setHTMLElemAttribute("className", "cf_button", "importButton", false);
-                setHTMLElemAttribute("innerHTML", "Load Layout", "importButton", false);
+                setHTMLElemAttribute("innerHTML", "Mở thiết kế", "importButton", false);
                 eventHTMLElem("click", "importButton", false, function (event) {
                     import_layout_from_file();
                 });
