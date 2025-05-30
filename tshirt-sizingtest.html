@@ -228,7 +228,14 @@
         border-radius: 6px;
         cursor: pointer;
         display: none;
-      ">Thêm vào thiết kế</button>
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      ">
+        <img src="images/videoexport_1videoexport.png"
+          style="width: 20px; height: 20px; filter: brightness(0) invert(1);">
+        Tải ảnh đã xóa nền
+      </button>
     </div>
 
     <style>
@@ -274,7 +281,7 @@
         const processBtn = container.querySelector('.remove-bg-process');
         const preview = container.querySelector('.remove-bg-preview');
         const loading = container.querySelector('.remove-bg-loading');
-        const addToCanvasBtn = container.querySelector('.remove-bg-add-to-canvas');
+        const downloadBtn = container.querySelector('.remove-bg-add-to-canvas');
         const originalImg = preview.querySelector('.preview-original img');
         const resultImg = preview.querySelector('.preview-result img');
 
@@ -296,7 +303,7 @@
             preview.style.display = 'flex';
             processBtn.style.display = 'block';
             resultImg.src = '';
-            addToCanvasBtn.style.display = 'none';
+            downloadBtn.style.display = 'none';
           };
           reader.readAsDataURL(file);
         });
@@ -308,7 +315,7 @@
           loading.style.display = 'flex';
           processBtn.style.display = 'none';
           preview.style.display = 'none';
-          addToCanvasBtn.style.display = 'none';
+          downloadBtn.style.display = 'none';
 
           try {
             const formData = new FormData();
@@ -335,7 +342,7 @@
             resultImg.src = imageUrl;
 
             preview.style.display = 'flex';
-            addToCanvasBtn.style.display = 'block';
+            downloadBtn.style.display = 'block';
 
           } catch (error) {
             console.error('Error removing background:', error);
@@ -346,58 +353,36 @@
           }
         });
 
-        addToCanvasBtn.addEventListener('click', function () {
+        downloadBtn.addEventListener('click', function () {
           if (!processedImageBlob) return;
 
-          const imageUrl = URL.createObjectURL(processedImageBlob);
-          const img = new Image();
+          // Create a download link
+          const url = URL.createObjectURL(processedImageBlob);
+          const a = document.createElement('a');
+          a.href = url;
 
-          img.onload = function () {
-            // Get the stage from Konva.ids using the canvas data attribute
-            const canvas = document.querySelector('canvas[data-stage]');
-            if (!canvas) {
-              console.error('Canvas element not found');
-              return;
-            }
+          // Get the original filename and add -nobg suffix
+          const originalName = input.files[0].name;
+          const nameWithoutExt = originalName.substring(0, originalName.lastIndexOf('.'));
+          const extension = originalName.substring(originalName.lastIndexOf('.'));
+          a.download = `${nameWithoutExt}-nobg${extension}`;
 
-            const stageId = canvas.getAttribute('data-stage');
-            if (!stageId) {
-              console.error('Stage ID not found');
-              return;
-            }
+          // Trigger download
+          document.body.appendChild(a);
+          a.click();
 
-            const stage = Konva.ids[stageId];
-            if (!stage) {
-              console.error('Stage object not found in Konva.ids');
-              return;
-            }
+          // Cleanup
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
 
-            const konvaImage = new Konva.Image({
-              x: 50,
-              y: 50,
-              image: img,
-              draggable: true,
-              width: img.width,
-              height: img.height
-            });
-
-            const layer = stage.getLayers()[0];
-            layer.add(konvaImage);
-            layer.draw();
-
-            URL.revokeObjectURL(imageUrl);
-
-            // Reset the interface
-            input.value = '';
-            preview.style.display = 'none';
-            processBtn.style.display = 'none';
-            addToCanvasBtn.style.display = 'none';
-            originalImg.src = '';
-            resultImg.src = '';
-            processedImageBlob = null;
-          };
-
-          img.src = imageUrl;
+          // Reset the interface
+          input.value = '';
+          preview.style.display = 'none';
+          processBtn.style.display = 'none';
+          downloadBtn.style.display = 'none';
+          originalImg.src = '';
+          resultImg.src = '';
+          processedImageBlob = null;
         });
       });
     </script>
