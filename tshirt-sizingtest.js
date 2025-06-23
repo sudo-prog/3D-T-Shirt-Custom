@@ -205,6 +205,146 @@ function prepareFullscreen(containerId, fsButtonId, useFullscreen) {
     return disposeFullscreen;
 }
 
+// Remove BG Logic
+document.addEventListener("DOMContentLoaded", function () {
+  const REMOVE_BG_API_KEY = "rQFhfUyWaG1qBo1CffWLk6bn";
+  const container = document.querySelector(".remove-bg-container");
+  const input = container.querySelector(".remove-bg-input");
+  const processBtn = container.querySelector(".remove-bg-process");
+  const preview = container.querySelector(".remove-bg-preview");
+  const loading = container.querySelector(".remove-bg-loading");
+  const downloadBtn = container.querySelector(
+    ".remove-bg-add-to-canvas"
+  );
+  const originalImg = preview.querySelector(".preview-original img");
+  const resultImg = preview.querySelector(".preview-result img");
+
+  let processedImageBlob = null;
+
+  input.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size must be less than 10MB");
+      return;
+    }
+
+    // Reset interface
+    downloadBtn.style.display = "none";
+    processedImageBlob = null;
+
+    // Show original image preview
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      originalImg.src = e.target.result;
+      preview.style.display = "flex";
+      processBtn.style.display = "block";
+      resultImg.src = "";
+    };
+    reader.readAsDataURL(file);
+  });
+
+  processBtn.addEventListener("click", async function () {
+    const file = input.files[0];
+    if (!file) return;
+
+    loading.style.display = "flex";
+    processBtn.style.display = "none";
+    preview.style.display = "none";
+    downloadBtn.style.display = "none";
+
+    try {
+      const formData = new FormData();
+      formData.append("image_file", file);
+
+      const response = await fetch(
+        "https://api.remove.bg/v1.0/removebg",
+        {
+          method: "POST",
+          headers: {
+            "X-Api-Key": REMOVE_BG_API_KEY,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      processedImageBlob = await response.blob();
+      const imageUrl = URL.createObjectURL(processedImageBlob);
+
+      resultImg.onload = function () {
+        URL.revokeObjectURL(imageUrl);
+      };
+      resultImg.src = imageUrl;
+
+      preview.style.display = "flex";
+      if (processedImageBlob) {
+        downloadBtn.style.display = "flex";
+      }
+    } catch (error) {
+      console.error("Error removing background:", error);
+      alert("Error removing background. Please try again.");
+      processBtn.style.display = "block";
+      downloadBtn.style.display = "none";
+    } finally {
+      loading.style.display = "none";
+    }
+  });
+
+  downloadBtn.addEventListener("click", function () {
+    if (!processedImageBlob) return;
+
+    // Create a download link
+    const url = URL.createObjectURL(processedImageBlob);
+    const a = document.createElement("a");
+    a.href = url;
+
+    // Get the original filename and add -nobg suffix
+    const originalName = input.files[0].name;
+    const nameWithoutExt = originalName.substring(
+      0,
+      originalName.lastIndexOf(".")
+    );
+    const extension = originalName.substring(
+      originalName.lastIndexOf(".")
+    );
+    a.download = `${nameWithoutExt}-nobg${extension}`;
+
+    // Trigger download
+    document.body.appendChild(a);
+    a.click();
+
+    // Cleanup
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    // Reset the interface
+    input.value = "";
+    preview.style.display = "none";
+    processBtn.style.display = "none";
+    downloadBtn.style.display = "none";
+    originalImg.src = "";
+    resultImg.src = "";
+    processedImageBlob = null;
+  });
+
+  // Popup logic
+  const openBtn = document.getElementById("open-remove-bg");
+  const popup = document.getElementById("remove-bg-popup");
+  const closeBtn = document.getElementById("close-remove-bg");
+  openBtn.addEventListener("click", function () {
+    popup.style.display = "flex";
+  });
+  closeBtn.addEventListener("click", function () {
+    popup.style.display = "none";
+  });
+});
+
+
 function prepareExternalInterface(app) {
     /**
      * Register functions in the app.ExternalInterface to call them from
