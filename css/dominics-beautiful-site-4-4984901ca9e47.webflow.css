@@ -792,9 +792,9 @@ figcaption {
   justify-content: center;
   align-items: center;
   width: 44px;
-     min-width: 44px;
-     height: 44px;
-     min-height: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
   text-decoration: none;
   transition: background-color .3s, color .3s;
   display: flex;
@@ -5271,10 +5271,10 @@ figcaption {
 
   .social-icon-square {
     border-radius: 6px;
-    width: 30px;
-    min-width: 30px;
-    height: 30px;
-    min-height: 30px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
     font-size: 14px;
   }
 
