@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Handle cancel button click
     cancelBtn.addEventListener('click', () => {
         hideColorWarning();
-        if (confirm('Bạn có muốn tải lại trang không?')) {
+        if (confirm('Do you want to reload the page?')) {
             window.location.reload();
         }
     });

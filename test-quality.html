@@ -138,13 +138,13 @@
 <body>
     <div class="container">
         <h1>🔍 Test Image Quality Checker</h1>
-        <p>Upload ảnh để kiểm tra chất lượng và nhận gợi ý cải thiện.</p>
+        <p>Upload an image to check the quality and receive improvement suggestions.</p>
 
         <div class="upload-section" id="uploadSection">
-            <h3>📁 Upload ảnh</h3>
-            <p>Kéo thả ảnh vào đây hoặc click để chọn file</p>
+            <h3>📁 Upload image</h3>
+            <p>Drag and drop images here or click to select a file</p>
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
-            <button onclick="document.getElementById('fileInput').click()">Chọn ảnh</button>
+            <button onclick="document.getElementById('fileInput').click()">Select image</button>
         </div>
 
         <div class="preview" id="preview" style="display: none;">
@@ -153,7 +153,7 @@
         </div>
 
         <div class="result" id="result">
-            <h4 id="resultTitle">Kết quả kiểm tra</h4>
+            <h4 id="resultTitle">Check results</h4>
             <div id="resultContent"></div>
         </div>
 
@@ -201,7 +201,7 @@
 
         function handleFile(file) {
             if (!file.type.startsWith('image/')) {
-                alert('Vui lòng chọn file ảnh!');
+                alert('Please select an image file!');
                 return;
             }
 
@@ -219,12 +219,12 @@
 
         async function testAPI() {
             if (!currentFile) {
-                alert('Vui lòng chọn ảnh trước!');
+                alert('Please select an image first!');
                 return;
             }
 
             testBtn.disabled = true;
-            testBtn.textContent = 'Đang kiểm tra...';
+            testBtn.textContent = 'Checking.';
 
             try {
                 // Test file upload
@@ -240,8 +240,8 @@
                 displayResult(result);
 
             } catch (error) {
-                console.error('Lỗi:', error);
-                displayError('Lỗi kết nối: ' + error.message);
+                console.error('Error:', error);
+                displayError('Connection error:' + error.message);
             } finally {
                 testBtn.disabled = false;
                 testBtn.textContent = 'Test API';
@@ -253,7 +253,7 @@
             const resultContent = document.getElementById('resultContent');
 
             if (!result.success) {
-                displayError(result.message || 'Lỗi không xác định');
+                displayError(result.message || 'Unknown error');
                 return;
             }
 
@@ -261,15 +261,15 @@
             result.className = 'result success';
             result.style.display = 'block';
 
-            resultTitle.textContent = `Chất lượng: ${data.result}`;
+            resultTitle.textContent = `Quality: ${data.result}`;
             resultTitle.style.color = getQualityColor(data.quality);
 
             let html = `
                 <div class="quality-bar">
                     <div class="quality-fill" style="width: ${Math.min((data.score / 500) * 100, 100)}%; background: ${getQualityColor(data.quality)};"></div>
                 </div>
-                <p><strong>Điểm số:</strong> ${data.score}</p>
-                <p><strong>Chất lượng:</strong> ${data.quality}</p>
+                <p><strong>Score Number:</strong> ${data.score}</p>
+                <p><strong>Qual Amount:</strong> ${data.quality}</p>
             `;
 
             // Metrics
@@ -277,15 +277,15 @@
                 html += '<div class="metrics">';
                 html += `<div class="metric">
                     <div class="metric-value">${data.metrics.sharpness}</div>
-                    <div class="metric-label">Độ sắc nét</div>
+                    <div class="metric-label">Sharpnessss nét</div>
                 </div>`;
                 html += `<div class="metric">
                     <div class="metric-value">${data.metrics.contrast}</div>
-                    <div class="metric-label">Độ tương phản</div>
+                    <div class="metric-label">Contrast/div>
                 </div>`;
                 html += `<div class="metric">
                     <div class="metric-value">${data.metrics.brightness}</div>
-                    <div class="metric-label">Độ sáng</div>
+                    <div class="metric-label">Brightness</div>
                 </div>`;
                 html += `<div class="metric">
                     <div class="metric-value">${data.metrics.entropy}</div>
@@ -297,7 +297,7 @@
             // Suggestions
             if (data.suggestions && data.suggestions.length > 0) {
                 html += '<div class="suggestions">';
-                html += '<h5>💡 Gợi ý cải thiện:</h5>';
+                html += '<h5>💡 Improvement suggestions:</h5>';
                 html += '<ul>';
                 data.suggestions.forEach(suggestion => {
                     html += `<li>${suggestion}</li>`;
@@ -315,7 +315,7 @@
 
             result.className = 'result error';
             result.style.display = 'block';
-            resultTitle.textContent = 'Lỗi';
+            resultTitle.textContent = 'Error';
             resultTitle.style.color = '#721c24';
             resultContent.innerHTML = `<p>${message}</p>`;
         }
@@ -324,7 +324,7 @@
             switch (quality) {
                 case 'Cao': return '#4CAF50';
                 case 'Trung bình': return '#FF9800';
-                case 'Thấp': return '#f44336';
+                case 'Low': return '#f44336';
                 default: return '#666';
             }
         }
@@ -335,11 +335,11 @@
                 const response = await fetch(`${API_URL}/test`);
                 const result = await response.json();
                 if (result.success) {
-                    console.log('✅ API đang hoạt động:', result.message);
+                    console.log('✅ API is working:', result.message);
                 }
             } catch (error) {
-                console.error('❌ Không thể kết nối API:', error);
-                alert('⚠️ Không thể kết nối đến server. Vui lòng đảm bảo server đang chạy tại http://localhost:3000');
+                console.error('❌ Unable to connect to API:', error);
+                alert('⚠️ Unable to connect to server. Please ensure the server is running at http://localhost:3000');
             }
         });
     </script>

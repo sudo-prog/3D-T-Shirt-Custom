@@ -11689,8 +11689,8 @@ function createPL(v3d = window.v3d) {
               contextMenuNode.className = "cf_context-menu";
               contextMenuNode.style.display = "none";
               contextMenuNode.innerHTML = `
-                    <div class="cf_button cf_context-menu__button" data-action="up">Lớp trên</div>
-                    <div class="cf_button cf_context-menu__button" data-action="down">Lớp dưới</div>
+                    <div class="cf_button cf_context-menu__button" data-action="up">Top layer</div>
+                    <div class="cf_button cf_context-menu__button" data-action="down">Bottom layerw</div>
                     <div class="cf_button cf_context-menu__button" data-action="remove">Xóa</div>
                     `;
               contextMenuNode = wrapper.appendChild(contextMenuNode);
@@ -11815,7 +11815,7 @@ function createPL(v3d = window.v3d) {
               textToolsNode.className = "cf_block cf_text";
               textToolsNode.innerHTML = `
 
-                  <button class="cf_button cf_text-add">Thêm chữ</button>
+                  <button class="cf_button cf_text-add">Add textt</button>
 
                     <input type="color" class="cf_text-color" data-stage="${stageId}"/>
                     <label class="cf_label cf_label-color"></label>
@@ -12126,7 +12126,7 @@ function createPL(v3d = window.v3d) {
               }
 
               variance /= data.length / 4;
-              return variance; // Độ nét cao thì variance cao
+              return variance; //High sharpness means high variance
             }
 
             let toolsFlexContainer = document.createElement("div");
@@ -12140,9 +12140,7 @@ function createPL(v3d = window.v3d) {
               imageBlock.className = "cf_block cf_image";
               imageBlock.innerHTML = `
 
-                    <label class="cf_button cf_image-wrapper">
-                        Thêm Ảnh
-                    </label>
+                    <label class="cf_button cf_image-wrapper">Add Image</label>
                     `;
               imageBlock = toolsFlexContainer.appendChild(imageBlock);
               let imageSource = document.createElement("input");
@@ -12164,15 +12162,15 @@ function createPL(v3d = window.v3d) {
 
                   img.onload = function () {
                     const sharpness = checkSharpness(img);
-                    const threshold = 3100; // giá trị này bạn có thể điều chỉnh
+                    const threshold = 3100; //You can adjust this value
 
                     if (sharpness < threshold) {
-                      // Ảnh mờ
+                      //Blurry image
                       if (
                         !confirm(
-                          `Ảnh có vẻ bị mờ (sharpness: ${sharpness.toFixed(
+                          `Ảnh có Appearance Is/Are Blurry (sharpness: ${sharpness.toFixed(
                             0
-                          )}). Bạn vẫn muốn sử dụng?`
+                          )}). You Still Want Use Use?`
                         )
                       ) {
                         eim.target.value = ""; // reset file input
@@ -12180,7 +12178,7 @@ function createPL(v3d = window.v3d) {
                       }
                     }
 
-                    // Nếu ảnh rõ hoặc người dùng đồng ý vẫn dùng ảnh mờ
+                    //If the image is clear or the user agrees to still use the blurry image
                     stopDrawing();
 
                     Konva.Image.fromURL(fr.result, function (image) {
@@ -12299,7 +12297,7 @@ function createPL(v3d = window.v3d) {
               undoRedo.className = "cf_block cf_state-controls";
 
               undoRedo.innerHTML = `
-                    <button class="cf_button cf_state-reset">Xóa thiết kế</button>`;
+                    <button class="cf_button cf_state-reset">Delete designlan</button>`;
               toolsFlexContainer.append(undoRedo);
 
               //undo redo next
@@ -12926,7 +12924,7 @@ function createPL(v3d = window.v3d) {
         setHTMLElemAttribute("className", "cf_button", "exportButton", false);
         setHTMLElemAttribute(
           "innerHTML",
-          "Lưu thiết kế",
+          "Save design",
           "exportButton",
           false
         );
@@ -12941,7 +12939,7 @@ function createPL(v3d = window.v3d) {
           false
         );
         setHTMLElemAttribute("className", "cf_button", "importButton", false);
-        setHTMLElemAttribute("innerHTML", "Mở thiết kế", "importButton", false);
+        setHTMLElemAttribute("innerHTML", "Open design", "importButton", false);
         eventHTMLElem("click", "importButton", false, function (event) {
           import_layout_from_file();
         });

@@ -66,9 +66,7 @@
           z-index: 1100;
         ">
       <img src="images/upload-box-1--arrow-box-download-internet-network-server-up-upload.svg"
-        style="width: 22px; height: 22px; filter: brightness(0) invert(1)" />
-      Xóa nền ảnh
-    </button>
+        style="width: 22px; height: 22px; filter: brightness(0) invert(1)" />Remove photo background</button>
     <!-- Remove BG Popup -->
     <div class="remove-bg-container" id="remove-bg-popup" style="
           position: fixed;
@@ -105,7 +103,7 @@
           ">
         ×
       </button>
-      <h3 style="margin: 0; color: #333">Xóa nền ảnh</h3>
+      <h3 style="margin: 0; color: #333">Remove photo background</h3>
       <div style="display: flex; gap: 10px; width: 100%; justify-content: center">
         <label class="remove-bg-button" style="
               background: #4d97e7;
@@ -119,9 +117,7 @@
               transition: background 0.2s;
             ">
           <img src="images/upload-box-1--arrow-box-download-internet-network-server-up-upload.svg"
-            style="width: 20px; height: 20px; filter: brightness(0) invert(1)" />
-          Chọn ảnh
-          <input type="file" class="remove-bg-input" accept="image/*" style="display: none" />
+            style="width: 20px; height: 20px; filter: brightness(0) invert(1)" />Select photo<input type="file" class="remove-bg-input" accept="image/*" style="display: none" />
         </label>
         <button class="remove-bg-process" style="
               background: #4caf50;
@@ -131,9 +127,7 @@
               border-radius: 6px;
               cursor: pointer;
               display: none;
-            ">
-          Xóa nền
-        </button>
+            ">Remove background</button>
       </div>
 
       <div class="remove-bg-preview" style="
@@ -145,11 +139,11 @@
             flex-wrap: wrap;
           ">
         <div class="preview-original" style="flex: 1; min-width: 150px; text-align: center">
-          <p style="margin: 0 0 10px 0; color: #666">Ảnh gốc</p>
+          <p style="margin: 0 0 10px 0; color: #666">Original photo</p>
           <img style="max-width: 100%; max-height: 200px; border-radius: 4px" />
         </div>
         <div class="preview-result" style="flex: 1; min-width: 150px; text-align: center">
-          <p style="margin: 0 0 10px 0; color: #666">Ảnh đã xóa nền</p>
+          <p style="margin: 0 0 10px 0; color: #666">Background-removed photo</p>
           <img style="max-width: 100%; max-height: 200px; border-radius: 4px" />
         </div>
       </div>
@@ -185,7 +179,7 @@
                 animation-delay: 0.4s;
               "></span>
         </div>
-        <p style="margin: 0; color: #666">Đang xử lý...</p>
+        <p style="margin: 0; color: #666">Processing.</p>
       </div>
 
       <button class="remove-bg-add-to-canvas" style="
@@ -200,9 +194,7 @@
             gap: 8px;
           ">
         <img src="images/videoexport_1videoexport.png"
-          style="width: 20px; height: 20px; filter: brightness(0) invert(1)" />
-        Tải ảnh đã xóa nền
-      </button>
+          style="width: 20px; height: 20px; filter: brightness(0) invert(1)" />Download background-removed photo</button>
     </div>
 
 
@@ -258,7 +250,7 @@
                 </button>
               </div>
               <div class="cf_block cf_text">
-                <button class="cf_button cf_text-add">Thêm chữ</button>
+                <button class="cf_button cf_text-add">Add text</button>
 
                 <input type="color" class="cf_text-color" data-stage="cf_stage1" />
                 <label class="cf_label cf_label-color"></label>
@@ -280,15 +272,11 @@
               </div>
               <div style="display: flex; flex-direction: row">
                 <div class="cf_block cf_image">
-                  <label class="cf_button cf_image-wrapper">
-                    Thêm ảnh
-                    <input type="file" class="cf_image-source" />
+                  <label class="cf_button cf_image-wrapper">Add photo<input type="file" class="cf_image-source" />
                   </label>
                 </div>
                 <div class="cf_block cf_image">
-                  <label class="cf_button cf_image-wrapper" id="remove-bg-button">
-                    Xóa nền ảnh
-                    <input type="file" class="cf_remove-bg-source" accept="image/*" />
+                  <label class="cf_button cf_image-wrapper" id="remove-bg-button">Delete image background<input type="file" class="cf_remove-bg-source" accept="image/*" />
                   </label>
                   <div id="remove-bg-loading" class="remove-bg-loading" style="display: none">
                     <div class="loading-dots">
@@ -299,26 +287,16 @@
                   </div>
                 </div>
                 <div class="cf_block cf_state-controls">
-                  <button id="exportButton" class="cf_button">
-                    Lưu thiết kế
-                  </button>
-                  <button id="importButton" class="cf_button">
-                    Tải thiết kế
-                  </button>
-                  <button class="cf_button cf_state-reset">
-                    Xóa thiết kế
-                  </button>
+                  <button id="exportButton" class="cf_button">Save design</button>
+                  <button id="importButton" class="cf_button">Load design</button>
+                  <button class="cf_button cf_state-reset">Delete design</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="cf_context-menu" style="display: none">
-            <div class="cf_button cf_context-menu__button" data-action="up">
-              Lớp lên
-            </div>
-            <div class="cf_button cf_context-menu__button" data-action="down">
-              Lớp dưới
-            </div>
+            <div class="cf_button cf_context-menu__button" data-action="up">Top layer</div>
+            <div class="cf_button cf_context-menu__button" data-action="down">Bottom layer</div>
             <div class="cf_button cf_context-menu__button" data-action="remove">
               Xóa
             </div>
@@ -333,14 +311,14 @@
 
   <!-- OpenAI Content Moderation API -->
   <script>
-    // Hàm kiểm tra nội dung không phù hợp bằng OpenAI GPT-4 Vision
+    //Function to check inappropriate content using OpenAI GPT-4 Vision
     async function checkInappropriateContent(base64ImageData) {
-      // QUAN TRỌNG: Thay thế 'YOUR_OPENAI_API_KEY' bằng API key của bạn
+      //IMPORTANT: Replace 'YOUR_OPENAI_API_KEY' with your API key
       const OPENAI_API_KEY = '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';
 
       if (!OPENAI_API_KEY || OPENAI_API_KEY === 'YOUR_OPENAI_API_KEY') {
-        console.warn("OpenAI API key chưa được cấu hình. Bỏ qua bước kiểm duyệt nội dung.");
-        // Trả về kết quả an toàn nếu không có API key để không chặn người dùng
+        console.warn("OpenAI API key not configured. Skipping content moderation step.");
+        //Return all results if there is no API key to avoid blocking users
         return {
           isInappropriate: false,
           reason: "API key not configured."
@@ -358,7 +336,7 @@
             "type": "image_url",
             "image_url": {
               "url": base64ImageData,
-              "detail": "low" // Dùng "low" để phân tích nhanh và rẻ hơn
+              "detail": "low" //Use "low" for faster and cheaper analysis
             }
           }]
         }],
@@ -378,7 +356,7 @@
         if (!response.ok) {
           const errorData = await response.json();
           console.error('OpenAI API request failed:', errorData);
-          // Trả về "an toàn" để không chặn người dùng khi API có lỗi
+          //Return "all" to avoid blocking users when the API has an error
           return {
             isInappropriate: false,
             reason: `API Error: ${response.statusText}`
@@ -388,7 +366,7 @@
         const result = await response.json();
         const content = result.choices[0].message.content;
 
-        // Dọn dẹp response để chỉ lấy phần JSON
+        //Clean up response to get only the JSON part
         const jsonMatch = content.match(/\{[\s\S]*\}/);
         if (!jsonMatch) {
           console.error("Invalid response from OpenAI, couldn't find JSON:", content);
@@ -406,8 +384,8 @@
         };
 
       } catch (error) {
-        console.error('Lỗi khi kiểm tra nội dung với OpenAI:', error);
-        // Trả về "an toàn" để không chặn người dùng nếu có lỗi
+        console.error('Error when checking content with OpenAI:', error);
+        //Return "all" to avoid blocking users if there is an error
         return {
           isInappropriate: false,
           reason: "An error occurred during check."
